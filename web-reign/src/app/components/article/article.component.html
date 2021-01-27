@@ -1,0 +1,18 @@
+<div>
+    <div class="header">
+        <h1>HN Feed</h1>
+        <p>We &lt;3 hacker news!</p>
+    </div>
+    <table id="articles">
+      <tbody>
+        <tr *ngFor="let article of articleService.Articles" (click)="openUrl(article)">
+          <td *ngIf="article.title" >{{ article.title }} - <span style="color: #999;">{{ article.author }}</span></td>
+          <td *ngIf="article.story_title" >{{ article.story_title }} - <span style="color: #999;">{{ article.author }}</span></td>
+          <td>{{ article.created_at }}</td>
+          <td>
+              <i class="gg-trash" id="icon" (click)="$event.stopPropagation();deleteArticle(article._id)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  web:
+    container_name: web-reign
+    image: web-reign
+    build:
+      context: ./web-reign
+      dockerfile: Dockerfile
+    depends_on:
+        - mongo 
+        - api
+    ports:
+      - "80:80"
+  mongo:
+    container_name: mongoDb
+    image: mongo
+    ports:
+      - "27018:27017"
+  api:
+    container_name: api-reign
+    image: api-reign
+    build:
+      context: ./api-reign
+      dockerfile: Dockerfile
+    depends_on: 
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo
+    command: node api-reign/dist/main.js
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+    volumes: 
+      - .:/usr/src/app

@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: mongo-db-test
+    image: mongo
+    ports:
+      - "27019:27017"
+  api:
+    container_name: api-reign-test
+    image: api-reign-test
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on: 
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo
+    command: npm run test:e2e
+    ports:
+      - "3001:3000"
+    links:
+      - mongo
+    volumes: 
+      - .:/usr/src/app
