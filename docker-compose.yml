@@ -29,7 +29,7 @@ services:
       - MONGO_URI=mongodb://mongo
     command: node api-reign/dist/main.js
     ports:
-      - "3000:3000"
+      - "4000:3000"
     links:
       - mongo
     volumes: 
